@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Lajar Tantjap</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_fragment">Movie Fragment</string>
+    <string name="tv_fragment">TV Fragment</string>
 </resources>
