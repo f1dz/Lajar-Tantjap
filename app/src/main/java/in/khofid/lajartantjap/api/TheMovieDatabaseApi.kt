@@ -8,4 +8,5 @@ object TheMovieDatabaseApi {
     private val API_KEY = BuildConfig.TMDB_API_KEY
 
     fun getPopularMovies() = ENDPOINT + "movie/popular?api_key=" + API_KEY
+    fun getPopularTvShows() = ENDPOINT + "tv/popular?api_key=" + API_KEY
 }

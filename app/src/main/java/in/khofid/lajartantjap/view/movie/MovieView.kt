@@ -1,4 +1,4 @@
-package `in`.khofid.lajartantjap.view
+package `in`.khofid.lajartantjap.view.movie
 
 import `in`.khofid.lajartantjap.model.Movie
 

@@ -1,7 +1,7 @@
 package `in`.khofid.lajartantjap.adapter
 
-import `in`.khofid.lajartantjap.view.MovieFragment
-import `in`.khofid.lajartantjap.view.TvShowFragment
+import `in`.khofid.lajartantjap.view.movie.MovieFragment
+import `in`.khofid.lajartantjap.view.tv.TvShowFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter

@@ -1,4 +1,4 @@
-package `in`.khofid.lajartantjap.view
+package `in`.khofid.lajartantjap.view.main
 
 import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.CustomPagerAdapter
