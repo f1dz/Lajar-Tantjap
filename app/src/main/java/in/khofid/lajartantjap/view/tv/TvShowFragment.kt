@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class TvShowFragment : Fragment(), TvShowView {
 
@@ -28,7 +29,7 @@ class TvShowFragment : Fragment(), TvShowView {
         rootView = inflater.inflate(R.layout.fragment_tv_show, container, false)
 
         adapter = TvAdapter(rootView.context, tvShows) {
-            Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+            startActivity<TvDetailActivity>("tv" to it)
         }
 
         rootView.rvTvShows.layoutManager = LinearLayoutManager(activity)
