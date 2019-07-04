@@ -5,4 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movie_fragment">Movie Fragment</string>
     <string name="tv_fragment">TV Fragment</string>
+    <string name="title_name">Title Name</string>
+    <string name="description">Description</string>
+    <string name="release_date">2019</string>
 </resources>
