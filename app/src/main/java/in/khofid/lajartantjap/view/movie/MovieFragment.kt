@@ -15,6 +15,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_movie.view.*
 import org.jetbrains.anko.support.v4.startActivity
 
+const val STATE = "state"
+
 class MovieFragment : Fragment(), MovieView {
 
     private var movies: MutableList<Movie> = arrayListOf()
@@ -37,7 +39,12 @@ class MovieFragment : Fragment(), MovieView {
 
 
         presenter = MoviePresenter(this)
-        presenter.getMovieList()
+
+        if(savedInstanceState != null){
+            val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(STATE)
+            loadMovies(saved.toList())
+        } else
+            presenter.getMovieList()
 
         return rootView
     }
@@ -58,5 +65,10 @@ class MovieFragment : Fragment(), MovieView {
 
     override fun movieNotFound() {
         Toast.makeText(context, "Data not found", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(STATE, ArrayList<Movie>(movies))
     }
 }

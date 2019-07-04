@@ -15,6 +15,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
 import org.jetbrains.anko.support.v4.startActivity
 
+const val STATE = "state"
+
 class TvShowFragment : Fragment(), TvShowView {
 
     private lateinit var rootView: View
@@ -36,7 +38,12 @@ class TvShowFragment : Fragment(), TvShowView {
         rootView.rvTvShows.adapter = adapter
 
         presenter = TvShowPresenter(this)
-        presenter.getTvShowList()
+
+        if(savedInstanceState != null) {
+            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(STATE)
+            loadTvShows(saved.toList())
+        } else
+            presenter.getTvShowList()
 
         return rootView
     }
@@ -53,5 +60,10 @@ class TvShowFragment : Fragment(), TvShowView {
         tvShows.clear()
         tvShows.addAll(data)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(STATE, ArrayList<TvShow>(tvShows))
     }
 }
