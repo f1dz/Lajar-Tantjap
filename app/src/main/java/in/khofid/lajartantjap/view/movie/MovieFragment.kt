@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_movie.view.*
+import org.jetbrains.anko.support.v4.startActivity
 
 class MovieFragment : Fragment(), MovieView {
 
@@ -28,7 +29,7 @@ class MovieFragment : Fragment(), MovieView {
         rootView = inflater.inflate(R.layout.fragment_movie, container, false)
 
         adapter = MovieAdapter(rootView.context, movies){
-            Toast.makeText(rootView.context, it.title, Toast.LENGTH_SHORT).show()
+            startActivity<MovieDetailActivity>("movie" to it)
         }
 
         rootView.rv_movies.layoutManager = LinearLayoutManager(activity)
