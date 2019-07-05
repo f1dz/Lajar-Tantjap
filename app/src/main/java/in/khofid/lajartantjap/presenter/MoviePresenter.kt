@@ -14,12 +14,12 @@ class MoviePresenter(
     private val apiRepository: ApiRepository = ApiRepository(),
     private val gson: Gson = Gson()
 ) {
-    fun getMovieList(){
+    fun getMovieList(lang: String){
         view.showLoading()
 
         GlobalScope.launch(Dispatchers.Main) {
             val data = gson.fromJson(apiRepository
-                .doRequest(TheMovieDatabaseApi.getPopularMovies()).await(),
+                .doRequest(TheMovieDatabaseApi.getPopularMovies(lang)).await(),
                 MovieResponse::class.java)
 
             view.loadMovies(data.results)
