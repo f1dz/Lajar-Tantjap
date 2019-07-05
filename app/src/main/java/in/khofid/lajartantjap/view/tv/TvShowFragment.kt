@@ -6,13 +6,14 @@ import `in`.khofid.lajartantjap.adapter.TvAdapter
 import `in`.khofid.lajartantjap.model.TvShow
 import `in`.khofid.lajartantjap.presenter.TvShowPresenter
 import `in`.khofid.lajartantjap.utils.getLanguageFormat
+import `in`.khofid.lajartantjap.utils.hide
+import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
@@ -58,11 +59,11 @@ class TvShowFragment : Fragment(), TvShowView {
     }
 
     override fun showLoading() {
-        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+        rootView.progress.show()
     }
 
     override fun hideLoading() {
-        Toast.makeText(context, "Data Loaded", Toast.LENGTH_SHORT).show()
+        rootView.progress.hide()
     }
 
     override fun loadTvShows(data: List<TvShow>) {

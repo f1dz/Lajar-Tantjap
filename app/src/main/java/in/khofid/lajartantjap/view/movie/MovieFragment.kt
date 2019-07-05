@@ -6,6 +6,8 @@ import `in`.khofid.lajartantjap.adapter.MovieAdapter
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.presenter.MoviePresenter
 import `in`.khofid.lajartantjap.utils.getLanguageFormat
+import `in`.khofid.lajartantjap.utils.hide
+import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -56,11 +58,11 @@ class MovieFragment : Fragment(), MovieView {
     }
 
     override fun showLoading() {
-        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+        rootView.progress.show()
     }
 
     override fun hideLoading() {
-        Toast.makeText(context, "Data loaded", Toast.LENGTH_SHORT).show()
+        rootView.progress.hide()
     }
 
     override fun loadMovies(data: List<Movie>) {
