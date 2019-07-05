@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lajar Tantjap</string>
+
+    <string name="title_name">Nom du titre</string>
+    <string name="description">La description</string>
+    <string name="release_date">2019</string>
+    <string name="backdrop">Toile de fond</string>
+    <string name="poster">Affiche</string>
+    <string name="title">Titre</string>
+    <string name="year">2019</string>
+    <string name="movies">Films</string>
+    <string name="tv_shows">émissions de TV</string>
+    <string name="change_language_settings">Paramètres de langue</string>
+</resources>

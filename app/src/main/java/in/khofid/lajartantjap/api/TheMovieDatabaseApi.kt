@@ -7,6 +7,6 @@ object TheMovieDatabaseApi {
     private const val ENDPOINT = "https://api.themoviedb.org/3/"
     private val API_KEY = BuildConfig.TMDB_API_KEY
 
-    fun getPopularMovies() = ENDPOINT + "movie/popular?api_key=" + API_KEY
-    fun getPopularTvShows() = ENDPOINT + "tv/popular?api_key=" + API_KEY
+    fun getPopularMovies(language: String = "en-EN") = "${ENDPOINT}movie/popular?api_key=${API_KEY}&language=${language}" //ENDPOINT + "movie/popular?api_key=" + API_KEY
+    fun getPopularTvShows(language: String = "en-EN") = "${ENDPOINT}tv/popular?api_key=${API_KEY}&language=${language}" //ENDPOINT + "tv/popular?api_key=" + API_KEY
 }

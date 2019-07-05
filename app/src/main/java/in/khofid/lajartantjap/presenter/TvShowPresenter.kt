@@ -14,12 +14,12 @@ class TvShowPresenter(
     private var apiRepository: ApiRepository = ApiRepository(),
     private var gson: Gson = Gson()
 ) {
-    fun getTvShowList(){
+    fun getTvShowList(language: String){
         view.showLoading()
 
         GlobalScope.launch(Dispatchers.Main) {
             val data = gson.fromJson(apiRepository
-                .doRequest(TheMovieDatabaseApi.getPopularTvShows()).await(),
+                .doRequest(TheMovieDatabaseApi.getPopularTvShows(language)).await(),
                 TvResponse::class.java
             )
 

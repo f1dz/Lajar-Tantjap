@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Lajar Tantjap</string>
+
+    <string name="title_name">Nama Judul</string>
+    <string name="description">Deskripsi</string>
+    <string name="release_date">2019</string>
+    <string name="backdrop">Latar Belakang</string>
+    <string name="poster">Poster</string>
+    <string name="title">Judul</string>
+    <string name="year">2019</string>
+    <string name="movies">Film</string>
+    <string name="tv_shows">Serial TV</string>
+    <string name="change_language_settings">Pengaturan Bahasa</string>
+</resources>

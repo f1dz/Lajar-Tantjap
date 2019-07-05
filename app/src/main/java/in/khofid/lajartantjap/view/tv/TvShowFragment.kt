@@ -5,6 +5,7 @@ import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.TvAdapter
 import `in`.khofid.lajartantjap.model.TvShow
 import `in`.khofid.lajartantjap.presenter.TvShowPresenter
+import `in`.khofid.lajartantjap.utils.getLanguageFormat
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -14,8 +15,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
 import org.jetbrains.anko.support.v4.startActivity
+import java.util.*
+
 
 const val STATE = "state"
+const val LANG_STATE = "lang"
 
 class TvShowFragment : Fragment(), TvShowView {
 
@@ -23,12 +27,15 @@ class TvShowFragment : Fragment(), TvShowView {
     private lateinit var adapter: TvAdapter
     private var tvShows: MutableList<TvShow> = mutableListOf()
     private lateinit var presenter: TvShowPresenter
+    private lateinit var lang: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_tv_show, container, false)
+
+        lang = Locale.getDefault().language
 
         adapter = TvAdapter(rootView.context, tvShows) {
             startActivity<TvDetailActivity>("tv" to it)
@@ -39,11 +46,13 @@ class TvShowFragment : Fragment(), TvShowView {
 
         presenter = TvShowPresenter(this)
 
-        if(savedInstanceState != null) {
+        val oldLang = savedInstanceState?.getString(LANG_STATE)
+
+        if(savedInstanceState != null && lang == oldLang){
             val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(STATE)
             loadTvShows(saved.toList())
         } else
-            presenter.getTvShowList()
+            presenter.getTvShowList(lang.getLanguageFormat())
 
         return rootView
     }
@@ -65,5 +74,6 @@ class TvShowFragment : Fragment(), TvShowView {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(STATE, ArrayList<TvShow>(tvShows))
+        outState.putString(LANG_STATE, lang)
     }
 }

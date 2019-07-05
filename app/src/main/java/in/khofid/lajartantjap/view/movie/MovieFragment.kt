@@ -5,6 +5,7 @@ import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.MovieAdapter
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.presenter.MoviePresenter
+import `in`.khofid.lajartantjap.utils.getLanguageFormat
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -14,8 +15,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_movie.view.*
 import org.jetbrains.anko.support.v4.startActivity
+import java.util.*
 
 const val STATE = "state"
+const val LANG_STATE = "lang"
 
 class MovieFragment : Fragment(), MovieView {
 
@@ -23,6 +26,7 @@ class MovieFragment : Fragment(), MovieView {
     private lateinit var rootView: View
     private lateinit var presenter: MoviePresenter
     private lateinit var adapter: MovieAdapter
+    private lateinit var lang: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,17 +38,19 @@ class MovieFragment : Fragment(), MovieView {
             startActivity<MovieDetailActivity>("movie" to it)
         }
 
+        lang = Locale.getDefault().language
         rootView.rv_movies.layoutManager = LinearLayoutManager(activity)
         rootView.rv_movies.adapter = adapter
 
-
         presenter = MoviePresenter(this)
 
-        if(savedInstanceState != null){
+        val oldLang = savedInstanceState?.getString(LANG_STATE)
+
+        if(savedInstanceState != null && oldLang == lang){
             val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(STATE)
             loadMovies(saved.toList())
         } else
-            presenter.getMovieList()
+            presenter.getMovieList(lang.getLanguageFormat())
 
         return rootView
     }
@@ -70,5 +76,6 @@ class MovieFragment : Fragment(), MovieView {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(STATE, ArrayList<Movie>(movies))
+        outState.putString(LANG_STATE, lang)
     }
 }
