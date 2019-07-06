@@ -6,4 +6,5 @@ interface TvShowView {
     fun showLoading()
     fun hideLoading()
     fun loadTvShows(data: List<TvShow>)
+    fun tvShowNotFound()
 }
