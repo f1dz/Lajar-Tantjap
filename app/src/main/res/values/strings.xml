@@ -12,4 +12,5 @@
     <string name="tv_shows">TV Shows</string>
     <string name="change_language_settings">Language Settings</string>
     <string name="data_not_found">Data not found</string>
+    <string name="favorites">Favorites</string>
 </resources>
