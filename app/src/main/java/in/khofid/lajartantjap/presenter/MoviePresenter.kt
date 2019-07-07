@@ -22,7 +22,7 @@ class MoviePresenter(
                 .doRequest(TheMovieDatabaseApi.getPopularMovies(lang)).await(),
                 MovieResponse::class.java)
 
-            if(data.results.size > 0)
+            if(data.results.isNotEmpty())
                 view.loadMovies(data.results)
             else
                 view.movieNotFound()

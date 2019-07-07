@@ -23,7 +23,7 @@ class TvShowPresenter(
                     .doRequest(TheMovieDatabaseApi.getPopularTvShows(language)).await(),
                 TvResponse::class.java
             )
-            if (data.results.size > 0)
+            if (data.results.isNotEmpty())
                 view.loadTvShows(data.results)
             else
                 view.tvShowNotFound()

@@ -18,8 +18,10 @@ class TvDetailActivity : AppCompatActivity() {
 
         val tvShow: TvShow = intent.getParcelableExtra("tv")
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = tvShow.name
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = tvShow.name
+        }
 
         tvName.text = tvShow.name
         tvYear.text = tvShow.first_air_date?.getYear()

@@ -18,8 +18,10 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val movie: Movie = intent.getParcelableExtra("movie")
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = movie.title
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = movie.title
+        }
 
         tvTitle.text = movie.title
         tvYear.text = movie.release_date?.getYear()
