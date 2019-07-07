@@ -12,16 +12,16 @@ import kotlinx.android.synthetic.main.activity_tv_detail.*
 
 class TvDetailActivity : AppCompatActivity() {
 
-    private var tvShow: TvShow = TvShow()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tv_detail)
 
-        tvShow = intent.getParcelableExtra("tv")
+        val tvShow: TvShow = intent.getParcelableExtra("tv")
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = tvShow.name
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = tvShow.name
+        }
 
         tvName.text = tvShow.name
         tvYear.text = tvShow.first_air_date?.getYear()

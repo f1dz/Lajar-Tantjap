@@ -12,17 +12,16 @@ import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 class MovieDetailActivity : AppCompatActivity() {
 
-    private var movie: Movie = Movie()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        val intent = intent
-        movie = intent.getParcelableExtra("movie")
+        val movie: Movie = intent.getParcelableExtra("movie")
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = movie.title
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = movie.title
+        }
 
         tvTitle.text = movie.title
         tvYear.text = movie.release_date?.getYear()

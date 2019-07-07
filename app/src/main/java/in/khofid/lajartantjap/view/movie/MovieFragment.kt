@@ -72,7 +72,7 @@ class MovieFragment : Fragment(), MovieView {
     }
 
     override fun movieNotFound() {
-        Toast.makeText(context, "Data not found", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.data_not_found), Toast.LENGTH_SHORT).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
