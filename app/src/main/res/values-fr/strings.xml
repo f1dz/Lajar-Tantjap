@@ -12,4 +12,8 @@
     <string name="movies">Films</string>
     <string name="tv_shows">émissions de TV</string>
     <string name="change_language_settings">Paramètres de langue</string>
+    <string name="data_not_found">Données non trouvées</string>
+    <string name="favorites">Favoris</string>
+    <string name="added_to_favorite">Ajouté aux favoris</string>
+    <string name="removed_from_favorite">Retiré de favori</string>
 </resources>

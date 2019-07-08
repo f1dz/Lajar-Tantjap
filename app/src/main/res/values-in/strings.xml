@@ -11,4 +11,8 @@
     <string name="movies">Film</string>
     <string name="tv_shows">Serial TV</string>
     <string name="change_language_settings">Pengaturan Bahasa</string>
+    <string name="data_not_found">Data tidak ditemukan</string>
+    <string name="favorites">Kesukaan</string>
+    <string name="added_to_favorite">Berhasil ditambahkan ke kesukaan</string>
+    <string name="removed_from_favorite">Berhasil dihapus dari kesukaan</string>
 </resources>
