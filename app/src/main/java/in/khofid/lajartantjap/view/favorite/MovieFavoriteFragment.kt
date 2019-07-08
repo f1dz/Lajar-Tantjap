@@ -82,6 +82,7 @@ class MovieFavoriteFragment: Fragment(), MovieView {
     }
 
     override fun noInternet() {
+        // This page doesn't need to access internet
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
