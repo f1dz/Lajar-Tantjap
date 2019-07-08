@@ -3,6 +3,7 @@ package `in`.khofid.lajartantjap.presenter
 import `in`.khofid.lajartantjap.api.ApiRepository
 import `in`.khofid.lajartantjap.api.TheMovieDatabaseApi
 import `in`.khofid.lajartantjap.db.AppDatabase
+import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.model.MovieResponse
 import `in`.khofid.lajartantjap.view.movie.MovieView
 import android.content.Context
@@ -47,5 +48,9 @@ class MoviePresenter(
             else view.movieNotFound()
             view.hideLoading()
         }
+    }
+
+    fun getListFavoriteMovie(): List<Movie> {
+        return db.movieDao().all
     }
 }

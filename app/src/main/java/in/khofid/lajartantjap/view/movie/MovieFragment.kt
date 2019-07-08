@@ -36,7 +36,8 @@ class MovieFragment : Fragment(), MovieView {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_movie, container, false)
 
-        adapter = MovieAdapter(rootView.context, movies){
+        presenter = MoviePresenter(requireContext(), this)
+        adapter = MovieAdapter(rootView.context, movies, presenter.getListFavoriteMovie()){
             startActivity<MovieDetailActivity>("movie" to it)
         }
 
@@ -44,7 +45,6 @@ class MovieFragment : Fragment(), MovieView {
         rootView.rv_movies.layoutManager = LinearLayoutManager(activity)
         rootView.rv_movies.adapter = adapter
 
-        presenter = MoviePresenter(requireContext(), this)
 
         val oldLang = savedInstanceState?.getString(LANG_STATE)
 
