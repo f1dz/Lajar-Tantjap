@@ -4,6 +4,8 @@ import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.MovieAdapter
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.presenter.MoviePresenter
+import `in`.khofid.lajartantjap.utils.Constants.LANG_STATE
+import `in`.khofid.lajartantjap.utils.Constants.STATE
 import `in`.khofid.lajartantjap.utils.hide
 import `in`.khofid.lajartantjap.utils.show
 import `in`.khofid.lajartantjap.view.movie.MovieDetailActivity
@@ -18,10 +20,6 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_movie.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
-
-
-const val STATE = "state"
-const val LANG_STATE = "lang"
 
 class MovieFavoriteFragment: Fragment(), MovieView {
     private var movies: MutableList<Movie> = arrayListOf()

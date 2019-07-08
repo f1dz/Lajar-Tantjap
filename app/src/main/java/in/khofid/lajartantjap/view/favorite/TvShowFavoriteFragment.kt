@@ -1,62 +1,58 @@
-package `in`.khofid.lajartantjap.view.tv
-
+package `in`.khofid.lajartantjap.view.favorite
 
 import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.TvAdapter
 import `in`.khofid.lajartantjap.model.TvShow
 import `in`.khofid.lajartantjap.presenter.TvShowPresenter
-import `in`.khofid.lajartantjap.utils.getLanguageFormat
+import `in`.khofid.lajartantjap.utils.Constants
 import `in`.khofid.lajartantjap.utils.hide
 import `in`.khofid.lajartantjap.utils.show
+import `in`.khofid.lajartantjap.view.tv.TvDetailActivity
+import `in`.khofid.lajartantjap.view.tv.TvShowView
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
+import kotlin.collections.ArrayList
 
+const val FAV_TV_STATE = "favorite_tv_state"
 
-const val STATE = "state"
-const val LANG_STATE = "lang"
+class TvShowFavoriteFragment: Fragment(), TvShowView {
 
-class TvShowFragment : Fragment(), TvShowView {
-
+    private var tvShow: MutableList<TvShow> = arrayListOf()
     private lateinit var rootView: View
-    private lateinit var adapter: TvAdapter
-    private var tvShows: MutableList<TvShow> = mutableListOf()
     private lateinit var presenter: TvShowPresenter
+    private lateinit var adapter: TvAdapter
     private lateinit var lang: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_tv_show, container, false)
 
-        lang = Locale.getDefault().language
-
-        adapter = TvAdapter(rootView.context, tvShows) {
+        adapter = TvAdapter(rootView.context, tvShow){
             startActivity<TvDetailActivity>("tv" to it)
         }
 
+        lang = Locale.getDefault().language
         rootView.rvTvShows.layoutManager = LinearLayoutManager(activity)
         rootView.rvTvShows.adapter = adapter
 
         presenter = TvShowPresenter(requireContext(), this)
 
-        val oldLang = savedInstanceState?.getString(LANG_STATE)
+        val oldLang = savedInstanceState?.getString(Constants.LANG_STATE)
 
-        if (savedInstanceState != null && lang == oldLang) {
-            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(STATE)
+        if(savedInstanceState != null && oldLang == lang) {
+            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(FAV_TV_STATE)
             loadTvShows(saved.toList())
-        } else
-            presenter.getTvShowList(lang.getLanguageFormat())
+        } else presenter.getFavoriteTvShows()
 
         return rootView
+
     }
 
     override fun showLoading() {
@@ -68,18 +64,18 @@ class TvShowFragment : Fragment(), TvShowView {
     }
 
     override fun loadTvShows(data: List<TvShow>) {
-        tvShows.clear()
-        tvShows.addAll(data)
+        tvShow.clear()
+        tvShow.addAll(data)
         adapter.notifyDataSetChanged()
     }
 
     override fun tvShowNotFound() {
-        Toast.makeText(rootView.context, getString(R.string.data_not_found), Toast.LENGTH_SHORT).show()
+        rootView.frameLayout.snackbar(R.string.data_not_found).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(STATE, ArrayList<TvShow>(tvShows))
-        outState.putString(LANG_STATE, lang)
+        outState.putParcelableArrayList(FAV_TV_STATE, ArrayList<TvShow>(tvShow))
+        outState.putString(Constants.LANG_STATE, lang)
     }
 }

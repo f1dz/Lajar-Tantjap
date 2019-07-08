@@ -1,32 +1,30 @@
 package `in`.khofid.lajartantjap.presenter
 
 import `in`.khofid.lajartantjap.db.AppDatabase
-import `in`.khofid.lajartantjap.model.Movie
+import `in`.khofid.lajartantjap.model.TvShow
 import `in`.khofid.lajartantjap.view.common.DetailView
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MovieDetailPresenter(var context: Context) {
+class TvShowDetailPresenter(var context: Context) {
     val db = AppDatabase.getDatabase(context)
     val view: DetailView = context as DetailView
 
-    fun addToFavorite(movie: Movie){
+    fun addToFavorite(tvShow: TvShow) {
         GlobalScope.launch(Dispatchers.Main) {
-            db.movieDao().insert(movie)
+            db.tvShowDao().insert(tvShow)
             view.onFavorited()
         }
     }
 
-    fun removeFromFavorite(movie: Movie){
+    fun removeFromFavorite(tvShow: TvShow){
         GlobalScope.launch(Dispatchers.Main) {
-            db.movieDao().delete(movie)
+            db.tvShowDao().delete(tvShow)
             view.onRemoved()
         }
     }
 
-    fun isFavorited(movie: Movie): Boolean {
-        return db.movieDao().getById(movie.id) != null
-    }
+    fun isFavorited(tvShow: TvShow): Boolean = db.tvShowDao().getById(tvShow.id) != null
 }

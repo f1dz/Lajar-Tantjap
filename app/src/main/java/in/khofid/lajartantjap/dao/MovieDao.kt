@@ -13,7 +13,7 @@ interface MovieDao {
     val all: List<Movie>
 
     @Query("SELECT * FROM Movies WHERE id = :id")
-    fun getById(id: Int?): Movie
+    fun getById(id: Int?): Movie?
 
     @Insert(onConflict = REPLACE)
     fun insert(movie: Movie)

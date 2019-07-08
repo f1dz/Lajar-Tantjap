@@ -1,23 +1,22 @@
 package `in`.khofid.lajartantjap.view.movie
 
 import `in`.khofid.lajartantjap.R
-import `in`.khofid.lajartantjap.db.AppDatabase
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.presenter.MovieDetailPresenter
 import `in`.khofid.lajartantjap.utils.Constants
 import `in`.khofid.lajartantjap.utils.getYear
+import `in`.khofid.lajartantjap.view.common.DetailView
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import org.jetbrains.anko.design.snackbar
 
-class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
+class MovieDetailActivity : AppCompatActivity(), DetailView {
 
-    private lateinit var db: AppDatabase
     private lateinit var movie: Movie
     private lateinit var presenter: MovieDetailPresenter
     private var menuItem: Menu? = null
@@ -25,8 +24,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-
-        db = AppDatabase.getDatabase(application)
 
         movie = intent.getParcelableExtra("movie")
 
@@ -62,7 +59,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
                 true
             }
             R.id.add_to_favorite -> {
-                if (presenter.isFavorited(movie)) presenter.removeFromFavorite(movie) else presenter.addToFavorite(movie)
+                if (presenter.isFavorited(movie))
+                    presenter.removeFromFavorite(movie)
+                else
+                    presenter.addToFavorite(movie)
+
                 favoriteState()
                 return true
             }
@@ -79,12 +80,12 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     override fun onFavorited() {
         favoriteState()
-        Toast.makeText(this, "Movie favorited", Toast.LENGTH_SHORT).show()
+        scrollView.snackbar(getString(R.string.added_to_favorite)).show()
     }
 
     override fun onRemoved() {
         favoriteState()
-        Toast.makeText(this, "Movie removed from favorite", Toast.LENGTH_SHORT).show()
+        scrollView.snackbar(getString(R.string.removed_from_favorite)).show()
     }
 
 }

@@ -12,6 +12,9 @@ interface TvShowDao {
     @get:Query("SELECT * FROM TvShow")
     val all: List<TvShow>
 
+    @Query("SELECT * FROM TvShow WHERE id = :id")
+    fun getById(id: Int?): TvShow?
+
     @Insert(onConflict = REPLACE)
     fun insert(tvShow: TvShow)
 
