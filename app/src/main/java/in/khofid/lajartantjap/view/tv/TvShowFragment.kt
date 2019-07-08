@@ -39,14 +39,14 @@ class TvShowFragment : Fragment(), TvShowView {
 
         lang = Locale.getDefault().language
 
-        adapter = TvAdapter(rootView.context, tvShows) {
+        presenter = TvShowPresenter(requireContext(), this)
+        adapter = TvAdapter(rootView.context, tvShows, presenter.getListFavoriteTvShow()) {
             startActivity<TvDetailActivity>("tv" to it)
         }
 
         rootView.rvTvShows.layoutManager = LinearLayoutManager(activity)
         rootView.rvTvShows.adapter = adapter
 
-        presenter = TvShowPresenter(requireContext(), this)
 
         val oldLang = savedInstanceState?.getString(LANG_STATE)
 

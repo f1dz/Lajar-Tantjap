@@ -34,7 +34,8 @@ class TvShowFavoriteFragment: Fragment(), TvShowView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_tv_show, container, false)
 
-        adapter = TvAdapter(rootView.context, tvShow){
+        presenter = TvShowPresenter(requireContext(), this)
+        adapter = TvAdapter(rootView.context, tvShow, presenter.getListFavoriteTvShow()){
             startActivity<TvDetailActivity>("tv" to it)
         }
 
@@ -42,7 +43,6 @@ class TvShowFavoriteFragment: Fragment(), TvShowView {
         rootView.rvTvShows.layoutManager = LinearLayoutManager(activity)
         rootView.rvTvShows.adapter = adapter
 
-        presenter = TvShowPresenter(requireContext(), this)
 
         val oldLang = savedInstanceState?.getString(Constants.LANG_STATE)
 

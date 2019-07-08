@@ -4,6 +4,7 @@ import `in`.khofid.lajartantjap.api.ApiRepository
 import `in`.khofid.lajartantjap.api.TheMovieDatabaseApi
 import `in`.khofid.lajartantjap.db.AppDatabase
 import `in`.khofid.lajartantjap.model.TvResponse
+import `in`.khofid.lajartantjap.model.TvShow
 import `in`.khofid.lajartantjap.view.tv.TvShowView
 import android.content.Context
 import com.google.gson.Gson
@@ -46,5 +47,9 @@ class TvShowPresenter(
             if(data.isNotEmpty()) view.loadTvShows(data) else view.tvShowNotFound()
             view.hideLoading()
         }
+    }
+
+    fun getListFavoriteTvShow(): List<TvShow> {
+        return db.tvShowDao().all
     }
 }
