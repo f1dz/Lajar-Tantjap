@@ -1,6 +1,7 @@
 package `in`.khofid.lajartantjap.view.main
 
 import `in`.khofid.lajartantjap.R
+import `in`.khofid.lajartantjap.view.favorite.FavoritesFragment
 import `in`.khofid.lajartantjap.view.movie.MovieFragment
 import `in`.khofid.lajartantjap.view.tv.TvShowFragment
 import android.content.Intent
@@ -10,7 +11,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.movies -> loadFragment(MovieFragment())
                 R.id.tvShow -> loadFragment(TvShowFragment())
-                R.id.favorites -> {
-                    Toast.makeText(this, "Favorites", Toast.LENGTH_SHORT).show()
-                }
+                R.id.favorites -> loadFragment(FavoritesFragment())
             }
             true
         }

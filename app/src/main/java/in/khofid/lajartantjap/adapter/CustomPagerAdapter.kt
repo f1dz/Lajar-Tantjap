@@ -1,16 +1,16 @@
 package `in`.khofid.lajartantjap.adapter
 
 import `in`.khofid.lajartantjap.R
-import `in`.khofid.lajartantjap.view.movie.MovieFragment
+import `in`.khofid.lajartantjap.view.favorite.MovieFavoriteFragment
 import `in`.khofid.lajartantjap.view.tv.TvShowFragment
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 
-class CustomPagerAdapter(fm: FragmentManager, var context: Context): FragmentPagerAdapter(fm) {
+class CustomPagerAdapter(fm: FragmentManager, var context: Context): FragmentStatePagerAdapter(fm) {
 
-    private val pages = listOf(MovieFragment(), TvShowFragment())
+    private val pages = listOf(MovieFavoriteFragment(), TvShowFragment())
 
     override fun getItem(position: Int): Fragment {
         return pages[position]

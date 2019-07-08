@@ -8,7 +8,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imgBackdrop"
@@ -82,6 +82,15 @@
             android:numStars="5"
             app:layout_constraintBottom_toBottomOf="@+id/imgBackdrop"
             app:layout_constraintStart_toEndOf="@+id/imgPoster" />
+
+        <ImageButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_favorites"
+            app:layout_constraintBottom_toBottomOf="@+id/imgPoster"
+            app:layout_constraintStart_toStartOf="@+id/imgPoster" />
 
     </android.support.constraint.ConstraintLayout>
 

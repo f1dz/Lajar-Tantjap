@@ -1,17 +1,16 @@
-package `in`.khofid.lajartantjap.view.movie
-
+package `in`.khofid.lajartantjap.view.favorite
 
 import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.MovieAdapter
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.presenter.MoviePresenter
-import `in`.khofid.lajartantjap.utils.getLanguageFormat
 import `in`.khofid.lajartantjap.utils.hide
 import `in`.khofid.lajartantjap.utils.show
+import `in`.khofid.lajartantjap.view.movie.MovieDetailActivity
+import `in`.khofid.lajartantjap.view.movie.MovieView
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +19,11 @@ import kotlinx.android.synthetic.main.fragment_movie.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
+
 const val STATE = "state"
 const val LANG_STATE = "lang"
 
-class MovieFragment : Fragment(), MovieView {
-
+class MovieFavoriteFragment: Fragment(), MovieView {
     private var movies: MutableList<Movie> = arrayListOf()
     private lateinit var rootView: View
     private lateinit var presenter: MoviePresenter
@@ -53,9 +52,7 @@ class MovieFragment : Fragment(), MovieView {
             val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(STATE)
             loadMovies(saved.toList())
         } else
-            presenter.getMovieList(lang.getLanguageFormat())
-
-        Log.d("parentSource", this.parentFragment.toString())
+            presenter.getFavoriteMovies()
 
         return rootView
     }
