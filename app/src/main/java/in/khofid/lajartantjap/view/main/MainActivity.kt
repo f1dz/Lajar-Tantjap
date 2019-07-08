@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.movies -> loadFragment(MovieFragment())
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        bottom_navigation.selectedItemId = R.id.movies
+        if(savedInstanceState == null)
+            bottom_navigation.selectedItemId = R.id.movies
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

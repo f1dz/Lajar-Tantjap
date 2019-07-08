@@ -11,7 +11,6 @@ import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_movie.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
-const val STATE = "state"
+const val MOVIE_STATE = "movie_state"
 const val LANG_STATE = "lang"
 
 class MovieFragment : Fragment(), MovieView {
@@ -50,12 +49,10 @@ class MovieFragment : Fragment(), MovieView {
         val oldLang = savedInstanceState?.getString(LANG_STATE)
 
         if(savedInstanceState != null && oldLang == lang){
-            val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(STATE)
+            val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(MOVIE_STATE)
             loadMovies(saved.toList())
         } else
             presenter.getMovieList(lang.getLanguageFormat())
-
-        Log.d("parentSource", this.parentFragment.toString())
 
         return rootView
     }
@@ -80,7 +77,7 @@ class MovieFragment : Fragment(), MovieView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(STATE, ArrayList<Movie>(movies))
+        outState.putParcelableArrayList(MOVIE_STATE, ArrayList<Movie>(movies))
         outState.putString(LANG_STATE, lang)
     }
 }
