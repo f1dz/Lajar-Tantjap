@@ -7,4 +7,5 @@ interface MovieView {
     fun hideLoading()
     fun loadMovies(data: List<Movie>)
     fun movieNotFound()
+    fun noInternet()
 }

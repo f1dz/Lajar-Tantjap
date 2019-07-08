@@ -5,6 +5,7 @@ import `in`.khofid.lajartantjap.api.TheMovieDatabaseApi
 import `in`.khofid.lajartantjap.db.AppDatabase
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.model.MovieResponse
+import `in`.khofid.lajartantjap.utils.Network
 import `in`.khofid.lajartantjap.view.movie.MovieView
 import android.content.Context
 import com.google.gson.Gson
@@ -13,7 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MoviePresenter(
-    context: Context,
+    val context: Context,
     private val view: MovieView,
     private val apiRepository: ApiRepository = ApiRepository(),
     private val gson: Gson = Gson()
@@ -24,15 +25,20 @@ class MoviePresenter(
     fun getMovieList(lang: String){
         view.showLoading()
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val data = gson.fromJson(apiRepository
-                .doRequest(TheMovieDatabaseApi.getPopularMovies(lang)).await(),
-                MovieResponse::class.java)
+        if(Network.internetAvailable(context))
+            GlobalScope.launch(Dispatchers.Main) {
+                val data = gson.fromJson(apiRepository
+                    .doRequest(TheMovieDatabaseApi.getPopularMovies(lang)).await(),
+                    MovieResponse::class.java)
 
-            if(data.results.isNotEmpty())
-                view.loadMovies(data.results)
-            else
-                view.movieNotFound()
+                if(data.results.isNotEmpty())
+                    view.loadMovies(data.results)
+                else
+                    view.movieNotFound()
+                view.hideLoading()
+            }
+        else{
+            view.noInternet()
             view.hideLoading()
         }
     }

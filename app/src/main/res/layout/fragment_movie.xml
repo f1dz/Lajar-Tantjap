@@ -29,4 +29,26 @@
         android:textSize="24sp"
         android:visibility="invisible"/>
 
+    <LinearLayout
+        android:id="@+id/noInternet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:src="@drawable/ic_cloud_off"
+            android:layout_gravity="center"
+            android:tint="@color/colorAccent"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_internet"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
 </FrameLayout>

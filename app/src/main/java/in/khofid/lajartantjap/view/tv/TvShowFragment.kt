@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
@@ -71,12 +72,18 @@ class TvShowFragment : Fragment(), TvShowView {
         tvShows.addAll(data)
         adapter.notifyDataSetChanged()
         rootView.tvDataNotFound.hide()
+        rootView.noInternet.hide()
     }
 
     override fun tvShowNotFound() {
         tvShows.clear()
         adapter.notifyDataSetChanged()
         rootView.tvDataNotFound.show()
+    }
+
+    override fun noInternet() {
+        rootView.noInternet.show()
+        rootView.snackbar(getString(R.string.no_internet))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

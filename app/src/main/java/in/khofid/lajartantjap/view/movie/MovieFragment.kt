@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_movie.view.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
@@ -69,12 +70,18 @@ class MovieFragment : Fragment(), MovieView {
         movies.addAll(data)
         adapter.notifyDataSetChanged()
         rootView.tvDataNotFound.hide()
+        rootView.noInternet.hide()
     }
 
     override fun movieNotFound() {
         movies.clear()
         adapter.notifyDataSetChanged()
         rootView.tvDataNotFound.show()
+    }
+
+    override fun noInternet() {
+        rootView.noInternet.show()
+        rootView.snackbar(getString(R.string.no_internet)).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

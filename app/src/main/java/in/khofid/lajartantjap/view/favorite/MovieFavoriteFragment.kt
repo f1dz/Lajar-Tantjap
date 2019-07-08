@@ -81,6 +81,9 @@ class MovieFavoriteFragment: Fragment(), MovieView {
         rootView.tvDataNotFound.show()
     }
 
+    override fun noInternet() {
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(STATE, ArrayList<Movie>(movies))
