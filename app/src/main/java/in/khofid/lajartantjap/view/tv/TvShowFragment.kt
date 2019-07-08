@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
@@ -71,10 +70,13 @@ class TvShowFragment : Fragment(), TvShowView {
         tvShows.clear()
         tvShows.addAll(data)
         adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.hide()
     }
 
     override fun tvShowNotFound() {
-        Toast.makeText(rootView.context, getString(R.string.data_not_found), Toast.LENGTH_SHORT).show()
+        tvShows.clear()
+        adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

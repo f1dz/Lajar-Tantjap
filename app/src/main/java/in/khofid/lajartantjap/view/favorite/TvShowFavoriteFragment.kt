@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
-import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 import kotlin.collections.ArrayList
@@ -72,10 +71,13 @@ class TvShowFavoriteFragment: Fragment(), TvShowView {
         tvShow.clear()
         tvShow.addAll(data)
         adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.hide()
     }
 
     override fun tvShowNotFound() {
-        rootView.frameLayout.snackbar(R.string.data_not_found).show()
+        tvShow.clear()
+        adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
