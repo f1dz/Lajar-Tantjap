@@ -56,6 +56,11 @@ class MovieFavoriteFragment: Fragment(), MovieView {
         return rootView
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getFavoriteMovies()
+    }
+
     override fun showLoading() {
         rootView.progress.show()
     }

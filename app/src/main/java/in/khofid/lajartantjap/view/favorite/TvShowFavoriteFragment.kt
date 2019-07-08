@@ -55,6 +55,11 @@ class TvShowFavoriteFragment: Fragment(), TvShowView {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getFavoriteTvShows()
+    }
+
     override fun showLoading() {
         rootView.progress.show()
     }

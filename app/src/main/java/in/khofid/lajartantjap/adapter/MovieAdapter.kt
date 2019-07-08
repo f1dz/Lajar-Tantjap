@@ -4,6 +4,7 @@ import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.utils.Constants
 import `in`.khofid.lajartantjap.utils.getYear
+import `in`.khofid.lajartantjap.utils.hide
 import `in`.khofid.lajartantjap.utils.show
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -41,6 +42,7 @@ class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         if (favorites.filter { it.id == movie.id }.size > 0)
             itemView.imgFavorite.show()
+        else itemView.imgFavorite.hide()
 
         itemView.setOnClickListener { listener(movie) }
     }
