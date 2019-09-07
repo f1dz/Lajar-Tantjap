@@ -11,16 +11,14 @@ import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
 
-const val STATE = "state"
+const val TV_STATE = "state"
 const val LANG_STATE = "lang"
 
 class TvShowFragment : Fragment(), TvShowView {
@@ -51,7 +49,7 @@ class TvShowFragment : Fragment(), TvShowView {
         val oldLang = savedInstanceState?.getString(LANG_STATE)
 
         if (savedInstanceState != null && lang == oldLang) {
-            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(STATE)
+            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(TV_STATE)
             loadTvShows(saved.toList())
         } else
             presenter.getTvShowList(lang.getLanguageFormat())
@@ -88,7 +86,27 @@ class TvShowFragment : Fragment(), TvShowView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(STATE, ArrayList<TvShow>(tvShows))
+        outState.putParcelableArrayList(TV_STATE, ArrayList<TvShow>(tvShows))
         outState.putString(LANG_STATE, lang)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_button, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.search -> {
+                startActivity<TvSearchActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

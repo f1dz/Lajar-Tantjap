@@ -17,19 +17,25 @@ class TvShowPresenter(
     val context: Context,
     private var view: TvShowView,
     private var apiRepository: ApiRepository = ApiRepository(),
-    private var gson: Gson = Gson()
+    private var gson: Gson = Gson(),
+    private val sourceType: String = "main"
 ) {
 
     private val db = AppDatabase.getDatabase(context)
 
-    fun getTvShowList(language: String) {
+    fun getTvShowList(language: String, query: String? = null) {
         view.showLoading()
+
+        var source = TheMovieDatabaseApi.getPopularTvShows(language)
+
+        if(sourceType == "search")
+            source = TheMovieDatabaseApi.searchTvShow(language, query)
 
         if(Network.internetAvailable(context))
             GlobalScope.launch(Dispatchers.Main) {
                 val data = gson.fromJson(
                     apiRepository
-                        .doRequest(TheMovieDatabaseApi.getPopularTvShows(language)).await(),
+                        .doRequest(source).await(),
                     TvResponse::class.java
                 )
                 if (data.results.isNotEmpty())
