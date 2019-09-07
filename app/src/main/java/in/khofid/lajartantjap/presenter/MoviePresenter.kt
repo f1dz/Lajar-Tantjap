@@ -17,18 +17,24 @@ class MoviePresenter(
     val context: Context,
     private val view: MovieView,
     private val apiRepository: ApiRepository = ApiRepository(),
-    private val gson: Gson = Gson()
+    private val gson: Gson = Gson(),
+    private val sourceType: String = "main"
 ) {
 
     private val db = AppDatabase.getDatabase(context)
 
-    fun getMovieList(lang: String){
+    fun getMovieList(lang: String, query: String? = null){
         view.showLoading()
+
+        var source = TheMovieDatabaseApi.getPopularMovies(lang)
+
+        if(sourceType == "search")
+            source = TheMovieDatabaseApi.searchMovies(lang, query)
 
         if(Network.internetAvailable(context))
             GlobalScope.launch(Dispatchers.Main) {
                 val data = gson.fromJson(apiRepository
-                    .doRequest(TheMovieDatabaseApi.getPopularMovies(lang)).await(),
+                    .doRequest(source).await(),
                     MovieResponse::class.java)
 
                 if(data.results.isNotEmpty())

@@ -16,4 +16,5 @@
     <string name="favorites">Favoris</string>
     <string name="added_to_favorite">Ajouté aux favoris</string>
     <string name="removed_from_favorite">Retiré de favori</string>
+    <string name="search_title">Search</string>
 </resources>
