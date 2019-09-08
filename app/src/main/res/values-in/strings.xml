@@ -16,4 +16,5 @@
     <string name="added_to_favorite">Berhasil ditambahkan ke kesukaan</string>
     <string name="removed_from_favorite">Berhasil dihapus dari kesukaan</string>
     <string name="search_title">Search</string>
+    <string name="no_internet">Tidak ada koneksi internet</string>
 </resources>
