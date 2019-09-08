@@ -12,7 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.tv.TvSearchActivity"></activity>
+        <receiver android:name=".widget.MovieWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/image_banner_widget_info" />
+        </receiver>
+
+        <activity android:name=".view.tv.TvSearchActivity" />
         <activity android:name=".view.movie.MovieSearchActivity" />
         <activity android:name=".view.tv.TvDetailActivity" />
         <activity android:name=".view.movie.MovieDetailActivity" />
@@ -23,6 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".services.MovieWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>
