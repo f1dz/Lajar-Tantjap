@@ -19,4 +19,20 @@
     <string name="search_title">Search</string>
     <string name="add_widget">Add widget</string>
     <string name="empty_text">No Favorites</string>
+    <string name="notification_content">Hi! We miss you</string>
+    <string name="sub_text">Sub text</string>
+    <string name="new_release_notification">%1s is released. Click to read more!</string>
+    <string name="notification_category">Reminder</string>
+    <string name="daily_reminder_key">daily_reminder</string>
+    <string name="daily_reminder_summary">You will get notification to come back to this app</string>
+    <string name="daily_reminder_title">Daily Reminder</string>
+    <string name="new_release_key">new_release</string>
+    <string name="new_release_title">New Release</string>
+    <string name="new_release_summary">Get new release notification</string>
+    <string name="new_release_summary_on">You will get notification when new movies were released</string>
+    <string name="new_release_summary_off">You will not get notification when new movies were released :(</string>
+    <string name="setting_category">Other Setting</string>
+    <string name="locale_setting_key">locale_setting</string>
+    <string name="locale_setting_title">Locale</string>
+    <string name="locale_setting_summary">Change language and locale</string>
 </resources>

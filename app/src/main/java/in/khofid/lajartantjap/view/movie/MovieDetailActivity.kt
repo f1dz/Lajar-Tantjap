@@ -35,8 +35,14 @@ class MovieDetailActivity : AppCompatActivity(), DetailView {
         tvTitle.text = movie.title
         tvYear.text = movie.release_date?.getYear()
         ratingBar.rating = movie.vote_average / 2
-        Picasso.get().load(Constants.IMG_URL + movie.backdrop_path).into(imgBackdrop)
-        Picasso.get().load(Constants.IMG_URL + movie.poster_path).into(imgPoster)
+        Picasso.get()
+            .load(Constants.IMG_URL + movie.backdrop_path)
+            .placeholder(R.mipmap.empty_movie_landscape)
+            .into(imgBackdrop)
+        Picasso.get()
+            .load(Constants.IMG_URL + movie.poster_path)
+            .placeholder(R.mipmap.empty_movie)
+            .into(imgPoster)
         tvDescription.text = movie.overview
 
         presenter = MovieDetailPresenter(this)
