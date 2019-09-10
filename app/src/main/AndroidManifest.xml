@@ -45,6 +45,10 @@
             android:enabled="true"
             android:exported="false" />
 
+        <receiver android:name=".services.MovieNewReleaseReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

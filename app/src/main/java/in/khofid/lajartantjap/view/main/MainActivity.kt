@@ -2,6 +2,7 @@ package `in`.khofid.lajartantjap.view.main
 
 import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.services.MovieDailyReceiver
+import `in`.khofid.lajartantjap.services.MovieNewReleaseReceiver
 import `in`.khofid.lajartantjap.view.favorite.FavoritesFragment
 import `in`.khofid.lajartantjap.view.movie.MovieFragment
 import `in`.khofid.lajartantjap.view.tv.TvShowFragment
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
         var dailyReceiver = MovieDailyReceiver()
         dailyReceiver.setRepeatingAlarm(this)
+
+        var newReleaseReceiver = MovieNewReleaseReceiver()
+        newReleaseReceiver.setReminder(this)
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {

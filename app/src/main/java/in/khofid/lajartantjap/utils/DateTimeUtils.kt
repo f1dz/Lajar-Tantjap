@@ -1,8 +1,9 @@
 package `in`.khofid.lajartantjap.utils
 
+import java.text.SimpleDateFormat
 import java.util.*
 
-class TimeUtils {
+class DateTimeUtils {
 
     companion object {
 
@@ -12,6 +13,13 @@ class TimeUtils {
             calendar.set(Calendar.MINUTE, minute)
             calendar.set(Calendar.SECOND, 0)
             return calendar
+        }
+
+        fun currentDate(): String {
+            var df = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault())
+            var date = Date()
+
+            return df.format(date)
         }
     }
 }
