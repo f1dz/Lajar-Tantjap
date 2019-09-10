@@ -1,8 +1,8 @@
 package `in`.khofid.lajartantjap.view.setting
 
 import `in`.khofid.lajartantjap.R
-import `in`.khofid.lajartantjap.services.MovieDailyReceiver
-import `in`.khofid.lajartantjap.services.MovieNewReleaseReceiver
+import `in`.khofid.lajartantjap.services.MovieDailyReminder
+import `in`.khofid.lajartantjap.services.MovieNewReleaseReminder
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +12,8 @@ import android.provider.Settings
 
 class SettingFragment: PreferenceFragment(), Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    private var dailyReminder = MovieDailyReceiver()
-    private var newReleaseReminder = MovieNewReleaseReceiver()
+    private var dailyReminder = MovieDailyReminder()
+    private var newReleaseReminder = MovieNewReleaseReminder()
     private lateinit var ctx: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,8 @@ class SettingFragment: PreferenceFragment(), Preference.OnPreferenceChangeListen
         val isChecked = component as Boolean
 
         when (key) {
-            getString(R.string.daily_reminder_key) -> if (isChecked) dailyReminder.setRepeatingAlarm(ctx) else dailyReminder.cancelRepetingAlarm(ctx)
-            getString(R.string.new_release_key) -> if (isChecked) newReleaseReminder.setReminder(ctx!!) else newReleaseReminder.cancelReminder(ctx)
+            getString(R.string.daily_reminder_key) -> if (isChecked) dailyReminder.setRepeatingReminder(ctx) else dailyReminder.cancelRepeatingReminder(ctx)
+            getString(R.string.new_release_key) -> if (isChecked) newReleaseReminder.setNewReleaseReminder(ctx!!) else newReleaseReminder.cancelNewReleaseReminder(ctx)
         }
 
         return true

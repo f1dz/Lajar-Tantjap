@@ -12,17 +12,17 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
-class MovieNewReleaseReceiver: BroadcastReceiver(), SettingCallback {
+class MovieNewReleaseReminder: BroadcastReceiver(), SettingCallback {
 
     private var mMovies: MutableList<Movie> = mutableListOf()
 
     override fun onReceive(context: Context, intent: Intent) {
         var settingPresenter = SettingPresenter(context, this)
-        settingPresenter.getNewReleaseMovies("2019-09-10")
+        settingPresenter.getNewReleaseMovies(DateTimeUtils.currentDate())
     }
 
-    fun setReminder(context: Context) {
-        var intent = Intent(context, MovieNewReleaseReceiver::class.java)
+    fun setNewReleaseReminder(context: Context) {
+        var intent = Intent(context, MovieNewReleaseReminder::class.java)
         var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         var timeAlarm = DateTimeUtils.time(Constants.ALARM_NEW_RELEASE_HOUR, Constants.ALARM_NEW_RELEASE_MINUTE)
 
@@ -32,13 +32,13 @@ class MovieNewReleaseReceiver: BroadcastReceiver(), SettingCallback {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeAlarm.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
     }
 
-    fun cancelReminder(context: Context) {
+    fun cancelNewReleaseReminder(context: Context) {
         var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent(context))
     }
 
     fun pendingIntent(context: Context): PendingIntent {
-        val intent = Intent(context, MovieNewReleaseReceiver::class.java)
+        val intent = Intent(context, MovieNewReleaseReminder::class.java)
         return PendingIntent.getBroadcast(context, Constants.ALARM_NEW_RELEASE_ID, intent, PendingIntent.FLAG_CANCEL_CURRENT)
     }
 
