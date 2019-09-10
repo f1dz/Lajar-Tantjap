@@ -14,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.setting.SettingActivity"></activity>
+
         <receiver android:name=".widget.MovieWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -44,11 +46,10 @@
             android:name=".services.MovieDailyReceiver"
             android:enabled="true"
             android:exported="false" />
-
-        <receiver android:name=".services.MovieNewReleaseReceiver"
+        <receiver
+            android:name=".services.MovieNewReleaseReceiver"
             android:enabled="true"
-            android:exported="false"/>
-
+            android:exported="false" />
     </application>
 
 </manifest>

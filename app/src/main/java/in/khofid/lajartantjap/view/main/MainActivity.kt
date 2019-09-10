@@ -1,14 +1,12 @@
 package `in`.khofid.lajartantjap.view.main
 
 import `in`.khofid.lajartantjap.R
-import `in`.khofid.lajartantjap.services.MovieDailyReceiver
-import `in`.khofid.lajartantjap.services.MovieNewReleaseReceiver
 import `in`.khofid.lajartantjap.view.favorite.FavoritesFragment
 import `in`.khofid.lajartantjap.view.movie.MovieFragment
+import `in`.khofid.lajartantjap.view.setting.SettingActivity
 import `in`.khofid.lajartantjap.view.tv.TvShowFragment
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -20,12 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        var dailyReceiver = MovieDailyReceiver()
-        dailyReceiver.setRepeatingAlarm(this)
-
-        var newReleaseReceiver = MovieNewReleaseReceiver()
-        newReleaseReceiver.setReminder(this)
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
@@ -46,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.action_change_settings){
-            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            val intent = Intent(baseContext, SettingActivity::class.java)
             startActivity(intent)
         }
 

@@ -17,14 +17,21 @@ class MovieDailyReceiver: BroadcastReceiver() {
     }
 
     fun setRepeatingAlarm(context: Context) {
-        var intent = Intent(context, MovieDailyReceiver::class.java)
         var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         var timeAlarm = DateTimeUtils.time(Constants.ALARM_HOUR, Constants.ALARM_MINUTE)
 
-        var pendingIntent = PendingIntent.getBroadcast(context, Constants.ALARM_REPEATING_ID, intent, 0)
-
         if(alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeAlarm.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, timeAlarm.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent(context))
         }
+    }
+
+    fun cancelRepetingAlarm(context: Context) {
+        var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.cancel(pendingIntent(context))
+    }
+
+    fun pendingIntent(context: Context): PendingIntent {
+        val intent = Intent(context, MovieDailyReceiver::class.java)
+        return PendingIntent.getBroadcast(context, Constants.ALARM_REPEATING_ID, intent, PendingIntent.FLAG_CANCEL_CURRENT)
     }
 }
