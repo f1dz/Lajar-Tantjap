@@ -11,16 +11,14 @@ import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_tv_show.view.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
 
-const val STATE = "state"
+const val TV_STATE = "state"
 const val LANG_STATE = "lang"
 
 class TvShowFragment : Fragment(), TvShowView {
@@ -39,19 +37,19 @@ class TvShowFragment : Fragment(), TvShowView {
 
         lang = Locale.getDefault().language
 
-        adapter = TvAdapter(rootView.context, tvShows) {
+        presenter = TvShowPresenter(requireContext(), this)
+        adapter = TvAdapter(rootView.context, tvShows, presenter.getListFavoriteTvShow()) {
             startActivity<TvDetailActivity>("tv" to it)
         }
 
         rootView.rvTvShows.layoutManager = LinearLayoutManager(activity)
         rootView.rvTvShows.adapter = adapter
 
-        presenter = TvShowPresenter(this)
 
         val oldLang = savedInstanceState?.getString(LANG_STATE)
 
-        if(savedInstanceState != null && lang == oldLang){
-            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(STATE)
+        if (savedInstanceState != null && lang == oldLang) {
+            val saved: ArrayList<TvShow> = savedInstanceState.getParcelableArrayList(TV_STATE)
             loadTvShows(saved.toList())
         } else
             presenter.getTvShowList(lang.getLanguageFormat())
@@ -71,15 +69,44 @@ class TvShowFragment : Fragment(), TvShowView {
         tvShows.clear()
         tvShows.addAll(data)
         adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.hide()
+        rootView.noInternet.hide()
     }
 
     override fun tvShowNotFound() {
-        Toast.makeText(rootView.context, getString(R.string.data_not_found), Toast.LENGTH_SHORT).show()
+        tvShows.clear()
+        adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.show()
+    }
+
+    override fun noInternet() {
+        rootView.noInternet.show()
+        rootView.snackbar(getString(R.string.no_internet))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(STATE, ArrayList<TvShow>(tvShows))
+        outState.putParcelableArrayList(TV_STATE, ArrayList<TvShow>(tvShows))
         outState.putString(LANG_STATE, lang)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_button, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.search -> {
+                startActivity<TvSearchActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

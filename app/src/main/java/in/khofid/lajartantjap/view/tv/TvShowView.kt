@@ -7,4 +7,5 @@ interface TvShowView {
     fun hideLoading()
     fun loadTvShows(data: List<TvShow>)
     fun tvShowNotFound()
+    fun noInternet()
 }

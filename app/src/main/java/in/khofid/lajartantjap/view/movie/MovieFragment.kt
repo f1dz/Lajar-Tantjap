@@ -11,15 +11,13 @@ import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_movie.view.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
 import java.util.*
 
-const val STATE = "state"
+const val MOVIE_STATE = "movie_state"
 const val LANG_STATE = "lang"
 
 class MovieFragment : Fragment(), MovieView {
@@ -36,7 +34,8 @@ class MovieFragment : Fragment(), MovieView {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_movie, container, false)
 
-        adapter = MovieAdapter(rootView.context, movies){
+        presenter = MoviePresenter(requireContext(), this)
+        adapter = MovieAdapter(rootView.context, movies, presenter.getListFavoriteMovie()){
             startActivity<MovieDetailActivity>("movie" to it)
         }
 
@@ -44,12 +43,11 @@ class MovieFragment : Fragment(), MovieView {
         rootView.rv_movies.layoutManager = LinearLayoutManager(activity)
         rootView.rv_movies.adapter = adapter
 
-        presenter = MoviePresenter(this)
 
         val oldLang = savedInstanceState?.getString(LANG_STATE)
 
         if(savedInstanceState != null && oldLang == lang){
-            val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(STATE)
+            val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(MOVIE_STATE)
             loadMovies(saved.toList())
         } else
             presenter.getMovieList(lang.getLanguageFormat())
@@ -69,15 +67,44 @@ class MovieFragment : Fragment(), MovieView {
         movies.clear()
         movies.addAll(data)
         adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.hide()
+        rootView.noInternet.hide()
     }
 
     override fun movieNotFound() {
-        Toast.makeText(context, getString(R.string.data_not_found), Toast.LENGTH_SHORT).show()
+        movies.clear()
+        adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.show()
+    }
+
+    override fun noInternet() {
+        rootView.noInternet.show()
+        rootView.snackbar(getString(R.string.no_internet)).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(STATE, ArrayList<Movie>(movies))
+        outState.putParcelableArrayList(MOVIE_STATE, ArrayList<Movie>(movies))
         outState.putString(LANG_STATE, lang)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_button, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.search -> {
+                startActivity<MovieSearchActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
