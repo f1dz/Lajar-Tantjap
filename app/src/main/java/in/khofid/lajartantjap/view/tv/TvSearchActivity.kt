@@ -108,4 +108,14 @@ class TvSearchActivity : AppCompatActivity(), TvShowView, SearchView.OnQueryText
 
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
