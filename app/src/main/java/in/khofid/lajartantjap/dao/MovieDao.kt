@@ -1,11 +1,9 @@
 package `in`.khofid.lajartantjap.dao
 
 import `in`.khofid.lajartantjap.model.Movie
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
+import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
-import android.arch.persistence.room.Query
+import android.database.Cursor
 
 @Dao
 interface MovieDao {
@@ -16,8 +14,20 @@ interface MovieDao {
     fun getById(id: Int?): Movie?
 
     @Insert(onConflict = REPLACE)
-    fun insert(movie: Movie)
+    fun insert(movie: Movie): Long
 
     @Delete
     fun delete(movie: Movie)
+
+    @Query("DELETE FROM Movies WHERE id = :id")
+    fun deleteById(id: Long): Int
+
+    @Query("SELECT * FROM Movies")
+    fun allFavorite(): Cursor
+
+    @Query("SELECT * FROM Movies WHERE id = :id")
+    fun getFavoriteById(id: Long): Cursor
+
+    @Update
+    fun update(movie: Movie): Int
 }

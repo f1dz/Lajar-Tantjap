@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <permission android:name="in.khofid.lajartantjap.READ_DATABASE"
+        android:protectionLevel="normal"/>
+    <permission android:name="in.khofid.lajartantjap.WRITE_DATABASE"
+        android:protectionLevel="normal"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -50,6 +55,13 @@
             android:name=".services.MovieNewReleaseReminder"
             android:enabled="true"
             android:exported="false" />
+
+        <provider
+            android:authorities="in.khofid.lajartantjap"
+            android:name=".provider.MovieProvider"
+            android:exported="true"
+            android:readPermission="in.khofid.lajartantjap.READ_DATABASE"
+            android:writePermission="in.khofid.WRITE_DATABASE"/>
     </application>
 
 </manifest>

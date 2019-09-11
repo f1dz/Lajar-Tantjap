@@ -3,6 +3,7 @@ package `in`.khofid.lajartantjap.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.content.ContentValues
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -30,4 +31,18 @@ data class Movie(
 
     @ColumnInfo(name = "release_date")
     var release_date: String? = null
-): Parcelable
+): Parcelable {
+    companion object {
+        fun fromContentValues(values: ContentValues?): Movie {
+            return Movie(
+                values?.getAsInteger("id"),
+                values?.getAsString("title"),
+                values?.getAsString("overview"),
+                values!!.getAsFloat("vote_average"),
+                values?.getAsString("poster_path"),
+                values?.getAsString("backdrop_path"),
+                values?.getAsString("release_date")
+            )
+        }
+    }
+}
