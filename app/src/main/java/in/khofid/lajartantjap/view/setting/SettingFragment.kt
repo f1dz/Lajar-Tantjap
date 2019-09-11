@@ -20,9 +20,9 @@ class SettingFragment: PreferenceFragment(), Preference.OnPreferenceChangeListen
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.setting)
         if(activity != null){
-            findPreference(getString(R.string.daily_reminder_key)).setOnPreferenceChangeListener(this)
-            findPreference(getString(R.string.new_release_key)).setOnPreferenceChangeListener(this)
-            findPreference(getString(R.string.locale_setting_key)).setOnPreferenceClickListener(this)
+            findPreference(getString(R.string.daily_reminder_key)).onPreferenceChangeListener = this
+            findPreference(getString(R.string.new_release_key)).onPreferenceChangeListener = this
+            findPreference(getString(R.string.locale_setting_key)).onPreferenceClickListener = this
         }
     }
 
@@ -32,7 +32,7 @@ class SettingFragment: PreferenceFragment(), Preference.OnPreferenceChangeListen
 
         when (key) {
             getString(R.string.daily_reminder_key) -> if (isChecked) dailyReminder.setRepeatingReminder(ctx) else dailyReminder.cancelRepeatingReminder(ctx)
-            getString(R.string.new_release_key) -> if (isChecked) newReleaseReminder.setNewReleaseReminder(ctx!!) else newReleaseReminder.cancelNewReleaseReminder(ctx)
+            getString(R.string.new_release_key) -> if (isChecked) newReleaseReminder.setNewReleaseReminder(ctx) else newReleaseReminder.cancelNewReleaseReminder(ctx)
         }
 
         return true

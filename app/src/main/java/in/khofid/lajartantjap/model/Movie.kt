@@ -39,9 +39,9 @@ data class Movie(
                 values?.getAsString("title"),
                 values?.getAsString("overview"),
                 values!!.getAsFloat("vote_average"),
-                values?.getAsString("poster_path"),
-                values?.getAsString("backdrop_path"),
-                values?.getAsString("release_date")
+                values.getAsString("poster_path"),
+                values.getAsString("backdrop_path"),
+                values.getAsString("release_date")
             )
         }
     }

@@ -53,16 +53,16 @@ class MovieWidget : AppWidgetProvider() {
 
             val intent =  Intent(context, MovieWidgetService::class.java)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)))
+            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
             val views = RemoteViews(context.packageName, R.layout.image_banner_widget)
             views.setRemoteAdapter(R.id.stack_view, intent)
             views.setEmptyView(R.id.stack_view, R.id.empty_view)
 
             val toastIntent = Intent(context, MovieWidget::class.java)
-            toastIntent.setAction(TOAST_ACTION)
+            toastIntent.action = TOAST_ACTION
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)))
+            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
             var toastPending = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             views.setPendingIntentTemplate(R.id.stack_view, toastPending)
 

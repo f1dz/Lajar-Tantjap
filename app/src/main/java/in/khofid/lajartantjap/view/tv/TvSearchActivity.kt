@@ -34,7 +34,7 @@ class TvSearchActivity : AppCompatActivity(), TvShowView, SearchView.OnQueryText
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tv_search)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle(getString(R.string.search_title))
+        supportActionBar?.title = getString(R.string.search_title)
 
         presenter = TvShowPresenter(this, this, ApiRepository(), Gson(), "search")
         adapter = TvAdapter(baseContext, tvShow, presenter.getListFavoriteTvShow()){

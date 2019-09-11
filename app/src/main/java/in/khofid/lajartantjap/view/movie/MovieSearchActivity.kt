@@ -35,7 +35,7 @@ class MovieSearchActivity : AppCompatActivity(), MovieView, SearchView.OnQueryTe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_search)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle(getString(R.string.search_title))
+        supportActionBar?.title = getString(R.string.search_title)
 
         presenter = MoviePresenter(this, this, ApiRepository(), Gson(), "search")
         adapter = MovieAdapter(baseContext, movies, presenter.getListFavoriteMovie()){

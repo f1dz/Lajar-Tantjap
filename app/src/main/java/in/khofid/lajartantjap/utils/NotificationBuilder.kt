@@ -49,7 +49,7 @@ class NotificationBuilder(var context: Context) {
                     NotificationManager.IMPORTANCE_HIGH
                 )
                 channel.enableVibration(true)
-                channel.setVibrationPattern(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
                 channel.enableLights(true)
 
                 builder.setChannelId(Constants.CHANNEL_ID)
