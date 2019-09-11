@@ -17,4 +17,21 @@
     <string name="added_to_favorite">Ajouté aux favoris</string>
     <string name="removed_from_favorite">Retiré de favori</string>
     <string name="search_title">Search</string>
+    <string name="add_widget">Ajouter un widget</string>
+    <string name="daily_reminder_summary">Vous recevrez une notification pour revenir à cette application</string>
+    <string name="daily_reminder_title">Rappel quotidien</string>
+    <string name="empty_text">Pas de favoris</string>
+    <string name="locale_setting_summary">Changer de langue et de lieu</string>
+    <string name="locale_setting_title">Lieu</string>
+    <string name="new_release_notification">%1s est libéré. Cliquez pour en lire plus!</string>
+    <string name="new_release_summary">Obtenir une notification de nouvelle version</string>
+    <string name="new_release_summary_off">Vous ne recevrez pas de notification lorsque de nouveaux films ont été publiés :(</string>
+    <string name="new_release_summary_on">Vous recevrez une notification lorsque de nouveaux films ont été publiés</string>
+    <string name="new_release_title">Nouvelle version</string>
+    <string name="no_internet">Pas de connexion Internet</string>
+    <string name="notification_category">Rappel</string>
+    <string name="notification_content">Salut..! Tu nous manques</string>
+    <string name="setting_category">Autre cadre</string>
+    <string name="sub_text">Sous texte</string>
+    <string name="unknown_uri">URI inconnu% 1s</string>
 </resources>

@@ -17,4 +17,20 @@
     <string name="removed_from_favorite">Berhasil dihapus dari kesukaan</string>
     <string name="search_title">Search</string>
     <string name="no_internet">Tidak ada koneksi internet</string>
+    <string name="add_widget">Tambahkan Widget</string>
+    <string name="daily_reminder_summary">Anda akan mendapatkan pemberitahuan untuk kembali ke aplikasi</string>
+    <string name="daily_reminder_title">Pengingat Harian</string>
+    <string name="empty_text">Tidak ada Favorite</string>
+    <string name="locale_setting_summary">Ganti Bahasa dan setingan lokal</string>
+    <string name="locale_setting_title">Lokal</string>
+    <string name="new_release_notification">%1s di rilis. Klik untuk membaca</string>
+    <string name="new_release_summary">Mendapatkan pemberitahuan rilis terbaru</string>
+    <string name="new_release_summary_off">Anda akan mendapatkan pemberitahuan jika ada rilis baru</string>
+    <string name="new_release_summary_on">Anda tidak akan mendapatkan pemberitahuan jika ada rilis terbaru</string>
+    <string name="new_release_title">Rilis Terbaru</string>
+    <string name="notification_category">Pengingat</string>
+    <string name="notification_content">Hai..! Aku kangen kamu nih</string>
+    <string name="setting_category">Pengaturan Lain</string>
+    <string name="sub_text">Sub Text</string>
+    <string name="unknown_uri">URI %1s tidak diketahui</string>
 </resources>
