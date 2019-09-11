@@ -18,9 +18,9 @@ class MovieProvider: ContentProvider() {
     private lateinit var db: AppDatabase
     private val MATCHER = UriMatcher(UriMatcher.NO_MATCH)
 
-    private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH).apply {
+    private val uriMatcher = MATCHER.apply {
         addURI(AUTHORITY, "Movies", MOVIES)
-        addURI(AUTHORITY, "Movies/*", MOVIE_ITEM)
+        addURI(AUTHORITY, "Movies/#", MOVIE_ITEM)
     }
 
 
