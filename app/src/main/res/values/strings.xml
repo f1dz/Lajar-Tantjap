@@ -35,4 +35,5 @@
     <string name="locale_setting_key">locale_setting</string>
     <string name="locale_setting_title">Locale</string>
     <string name="locale_setting_summary">Change language and locale</string>
+    <string name="unknown_uri">Unknown URI %1s</string>
 </resources>
