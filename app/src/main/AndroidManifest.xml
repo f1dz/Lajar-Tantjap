@@ -3,7 +3,15 @@
     package="in.khofid.lajartantjap">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <permission android:name="in.khofid.lajartantjap.READ_DATABASE"
+        android:protectionLevel="normal"/>
+    <permission android:name="in.khofid.lajartantjap.WRITE_DATABASE"
+        android:protectionLevel="normal"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +19,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.movie.MovieDetailActivity"></activity>
+        <activity android:name=".view.setting.SettingActivity"/>
+
+        <receiver android:name=".widget.MovieWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/image_banner_widget_info" />
+        </receiver>
+
+        <activity android:name=".view.tv.TvSearchActivity" />
+        <activity android:name=".view.movie.MovieSearchActivity" />
+        <activity android:name=".view.tv.TvDetailActivity" />
+        <activity android:name=".view.movie.MovieDetailActivity" />
         <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +42,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".services.MovieWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".services.MovieDailyReminder"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".services.MovieNewReleaseReminder"
+            android:enabled="true"
+            android:exported="false" />
+
+        <provider
+            android:authorities="in.khofid.lajartantjap"
+            android:name=".provider.MovieProvider"
+            android:exported="true"
+            android:readPermission="in.khofid.lajartantjap.READ_DATABASE"
+            android:writePermission="in.khofid.WRITE_DATABASE"/>
     </application>
 
 </manifest>

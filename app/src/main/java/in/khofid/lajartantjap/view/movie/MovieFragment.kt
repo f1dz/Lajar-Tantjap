@@ -5,15 +5,20 @@ import `in`.khofid.lajartantjap.R
 import `in`.khofid.lajartantjap.adapter.MovieAdapter
 import `in`.khofid.lajartantjap.model.Movie
 import `in`.khofid.lajartantjap.presenter.MoviePresenter
+import `in`.khofid.lajartantjap.utils.getLanguageFormat
+import `in`.khofid.lajartantjap.utils.hide
+import `in`.khofid.lajartantjap.utils.show
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_movie.view.*
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.startActivity
+import java.util.*
+
+const val MOVIE_STATE = "movie_state"
+const val LANG_STATE = "lang"
 
 class MovieFragment : Fragment(), MovieView {
 
@@ -21,6 +26,7 @@ class MovieFragment : Fragment(), MovieView {
     private lateinit var rootView: View
     private lateinit var presenter: MoviePresenter
     private lateinit var adapter: MovieAdapter
+    private lateinit var lang: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,35 +34,77 @@ class MovieFragment : Fragment(), MovieView {
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_movie, container, false)
 
-        adapter = MovieAdapter(rootView.context, movies){
+        presenter = MoviePresenter(requireContext(), this)
+        adapter = MovieAdapter(rootView.context, movies, presenter.getListFavoriteMovie()){
             startActivity<MovieDetailActivity>("movie" to it)
         }
 
+        lang = Locale.getDefault().language
         rootView.rv_movies.layoutManager = LinearLayoutManager(activity)
         rootView.rv_movies.adapter = adapter
 
 
-        presenter = MoviePresenter(this)
-        presenter.getMovieList()
+        val oldLang = savedInstanceState?.getString(LANG_STATE)
+
+        if(savedInstanceState != null && oldLang == lang){
+            val saved: ArrayList<Movie> = savedInstanceState.getParcelableArrayList(MOVIE_STATE)
+            loadMovies(saved.toList())
+        } else
+            presenter.getMovieList(lang.getLanguageFormat())
 
         return rootView
     }
 
     override fun showLoading() {
-        Toast.makeText(context, "Loading...", Toast.LENGTH_SHORT).show()
+        rootView.progress.show()
     }
 
     override fun hideLoading() {
-        Toast.makeText(context, "Data loaded", Toast.LENGTH_SHORT).show()
+        rootView.progress.hide()
     }
 
     override fun loadMovies(data: List<Movie>) {
         movies.clear()
         movies.addAll(data)
         adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.hide()
+        rootView.noInternet.hide()
     }
 
     override fun movieNotFound() {
-        Toast.makeText(context, "Data not found", Toast.LENGTH_SHORT).show()
+        movies.clear()
+        adapter.notifyDataSetChanged()
+        rootView.tvDataNotFound.show()
+    }
+
+    override fun noInternet() {
+        rootView.noInternet.show()
+        rootView.snackbar(getString(R.string.no_internet)).show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(MOVIE_STATE, ArrayList<Movie>(movies))
+        outState.putString(LANG_STATE, lang)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_button, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.search -> {
+                startActivity<MovieSearchActivity>()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Favorite Movie</string>
+    <string name="title_name">Title</string>
+    <string name="description">Lorem Ipsum</string>
+    <string name="release_date">2000-01-01</string>
+    <string name="data_not_found">Movie Not Found</string>
+    <string name="backdrop">Movie Backdrop</string>
+    <string name="poster">Poster</string>
+    <string name="title">Title</string>
+    <string name="year">2000</string>
+</resources>
